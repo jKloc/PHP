@@ -16,7 +16,14 @@
 	]);
 
 	//get body from web-site with try catch block for catch exceptions
-    $response = $Client->request('GET', 'https://eie.jippioo.no/api/brokers');
+    try {
+        $response = $Client->request('GET', 'https://eie.jippioo.no/api/brokers');
+    } catch (RequestException $e) {
+        echo ($e->getRequest());
+        if ($e->hasResponse()) {
+            echo ($e->getResponse());
+        }
+}
 
 	//create an object
 	$response = json_decode($response->getBody()->getContents());
